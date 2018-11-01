@@ -10,6 +10,8 @@ description: > # this means to ignore newlines until "baseurl:"
 twitter_username: your-twitter-handle
 github_username:  your-github-handle
 
+# ff
+
 show_excerpts: true # set to false to remove excerpts on the homepage
 
 theme: jekyll-theme-cayman
