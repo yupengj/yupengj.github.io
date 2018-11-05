@@ -6,8 +6,8 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: JYuP
-brief-intro: Front-end Dev Engineer
+title: YuPJ
+brief-intro: #Front-end Dev Engineer
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://yupengj.github.io" # the base hostname & protocol for your site
 
@@ -23,7 +23,7 @@ email: jyp10@faxmail.com
 #linkedIn_username: 
 #dribbble_username:
 
-description_footer: 随便写写
+description_footer: #随便写写
 
 # comments
 # two ways to comment, only choose one, and use your own short name

@@ -4,14 +4,14 @@ layout: default
 
 <div class="page clearfix" index>
     <div class="left">
-        <h1>Welcome to HyG's Blog!</h1>
-        <small>这里记录着我的前端学习之路</small>
+        <h1>Welcome to YuPJ's Blog!</h1>
+        <!--<small>这里记录着我的前端学习之路</small>-->
         <hr>
         <ul>
             {% for post in paginator.posts %}
               <li>
                 <h2>
-                  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                    <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
                 </h2>
                 <div class="label">
                     <div class="label-card">
@@ -43,8 +43,6 @@ layout: default
               </li>
             {% endfor %}
         </ul>
-
-
 
         <!-- Pagination links -->
         <div class="pagination">
