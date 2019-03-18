@@ -36,3 +36,7 @@ $$
 
 Inline Mathjax $a \neq b$
 
+Test Image 
+
+[](../images/test.png)
+
