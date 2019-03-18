@@ -49,7 +49,7 @@ kramdown:
 # port: 1234
 
 # url
-# category_dir: category/
+category_dir: category/
 tag_dir: tag/
 
 # excerpt
