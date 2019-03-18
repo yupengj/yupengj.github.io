@@ -36,7 +36,7 @@ $$
 
 Inline Mathjax $a \neq b$
 
-Test Image 
+<!-- Test Image  -->
 
-![图片](https://github.com/yupengj/yupengj.github.io/blob/master/images/test.png?raw=true)
-
+<!-- ![图片](https://github.com/yupengj/yupengj.github.io/blob/master/images/test.png?raw=true)
+ -->
