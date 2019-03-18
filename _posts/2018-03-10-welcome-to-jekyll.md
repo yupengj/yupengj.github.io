@@ -8,31 +8,7 @@ excerpt: 当年创建 jekyll 时默认的一篇文章，没什么意义，我也
 mathjax: true
 ---
 
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+响应式编程（Reactive Programming）可以理解为一种处理数据项（Data Item）的异步流，即在数据项产生的时候，接收者就对其进行响应。在响应式编程中，会有一个数据发布者（Publisher）和数据订阅者（Subscriber），后者用于异步接收发布者发布的数据。在该模式中，还引入了一个更高级的特性：数据处理器（Processor），它用于将数据发布者发布的数据进行某些转换操作，然后再发布给数据订阅者。
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
-```ruby
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-```
-
-Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll’s dedicated Help repository][jekyll-help].
-
-[jekyll]:      http://jekyllrb.com
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-help]: https://github.com/jekyll/jekyll-help
-
-Block Mathjax 
-
-$$
-f(x) = ax + b
-$$
-
-Inline Mathjax $a \neq b$
+总之，响应式编程是异步非阻塞编程，能够提升程序性能，可以解决传统编程模型遇到的困境。基于这个模型实现的有Java 9 Flow API、RxJava和Reactor等，这里主要介绍的是Java 9 Flow API的使用。
 
