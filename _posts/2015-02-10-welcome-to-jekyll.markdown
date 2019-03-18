@@ -38,5 +38,5 @@ Inline Mathjax $a \neq b$
 
 Test Image 
 
-![](../images/test.png)
+![](https://github.com/yupengj/yupengj.github.io/blob/master/images/test.png?raw=true)
 
