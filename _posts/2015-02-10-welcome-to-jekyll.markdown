@@ -1,10 +1,9 @@
 ---
 layout: post
 title:  "hello jekyll!"
-date:   2018-11-07 15:14:54
+date:   2019-03-19
 categories: jekyll
 tags: jekyll
-excerpt: 当年创建 jekyll 时默认的一篇文章，没什么意义，我也一直没删除，留个纪念吧。
 mathjax: true
 ---
 
@@ -35,8 +34,3 @@ f(x) = ax + b
 $$
 
 Inline Mathjax $a \neq b$
-
-<!-- Test Image  -->
-
-<!-- ![图片](https://github.com/yupengj/yupengj.github.io/blob/master/images/test.png?raw=true)
- -->
