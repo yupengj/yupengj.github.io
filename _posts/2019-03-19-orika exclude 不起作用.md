@@ -12,7 +12,7 @@ tags: orika java
 
 
 
-## 直接看使用 orika 的代码
+# 直接看使用 orika 的代码
 
 很显然这里想排除 map 中的 b 属性. 映射后B对象b属性的值应该为null.但结果并不是.
 
@@ -46,7 +46,7 @@ public class Issue314TestCase {
 	}
 }
 ```
-## 查看 exclude 方法源码
+# 查看 exclude 方法源码
 
 只找到了一个方法,在 ClassMapBuilder 类中
 
@@ -68,16 +68,19 @@ public ClassMapBuilder<A, B> exclude(String fieldName) {
 看到这段代码,猜测一下这个逻辑应该是,排除的属性(fieldName)必须在 A 类和 B 中都存在. 然后断点在 if 条件上看看 A 类和 B 类中的属性都有什么?
 
 - map 的属性在 propertyCache 中是这样的
+
 ![Amapclass](https://github.com/yupengj/yupengj.github.io/blob/master/images/Amapclass.png?raw=true) 
 
 - Bean 类的属性在 propertyCache 中是这样的
+
 ![Bclass](https://github.com/yupengj/yupengj.github.io/blob/master/images/Bclass.png?raw=true) 
 
 所以第一个条件 `propertyResolver.existsProperty(getAType(), fieldName)`是永远不会成立的. 这是什么鬼 map 中的属性排除不支持吗?
 
-## 发现 ClassMapBuilderForMaps 类.
+# 发现 ClassMapBuilderForMaps 类.
 
 找了好久,各种怀疑,最后看了一下 Variables 中的 this !!! 
+
 ![ClassMapThis](https://github.com/yupengj/yupengj.github.io/blob/master/images/ClassMapThis.png?raw=true)
 
 原来 `mapperFactory.classMap(Map.class, B.class)` 创建出来的是 ClassMapBuilderForMaps 类,继承 ClassMapBuilder 类.
@@ -133,7 +136,7 @@ public ClassMapBuilder<A, B> exclude(String fieldName) {
 
 但是现在我们使用的是以前的版本,要怎么绕过这个问题? 可以去掉 byDefault 方法用 ClassMapBuilder 的 field 方法指定要映射的属性,这样做在属性较多时会麻烦一些
 
-## 相关类
+# 相关类
 [ClassMapBuilder.java](https://github.com/orika-mapper/orika/blob/master/core/src/main/java/ma/glasnost/orika/metadata/ClassMapBuilder.java)
 
-[ClassMapBuilderForMaps](https://github.com/orika-mapper/orika/blob/master/core/src/main/java/ma/glasnost/orika/metadata/ClassMapBuilderForMaps.java)
+[ClassMapBuilderForMaps.java](https://github.com/orika-mapper/orika/blob/master/core/src/main/java/ma/glasnost/orika/metadata/ClassMapBuilderForMaps.java)
