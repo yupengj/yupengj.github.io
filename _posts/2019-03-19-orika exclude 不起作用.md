@@ -5,7 +5,7 @@ date: 2019-03-19 20:00:00
 tags: orika java
 ---
 
-在使用 orika 进行 map 转 bean 发现 exclude 方法不能有效的排除不需要转换的属性.最后经查看源码发现是 orika 的一个bug.
+在使用 orika 进行 map 转 bean 发现 exclude 方法不能有效的排除不需要映射的属性.最后经查看源码发现是 orika 的一个bug.
 
 下面记录一下是如何发现这个问题.
 
@@ -14,46 +14,36 @@ tags: orika java
 
 ## 直接看使用 orika 的代码
 
-很显然这里想排除 map 中的 b 属性. 转换后B对象b属性的值应该为null.但结果并不是.
+很显然这里想排除 map 中的 b 属性. 映射后B对象b属性的值应该为null.但结果并不是.
 
 ```java
 public class Issue314TestCase {
-
 	@Test
 	public void exclude_classMapBuilderForMaps() {
-
 		DefaultMapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 		mapperFactory.classMap(Map.class, B.class).exclude("b").byDefault().register();
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("a", "a");
 		map.put("b", "b");
-
 		B b = mapperFactory.getMapperFacade().map(map, B.class);
 		assertNull(b.getB());
 	}
-
 	public static class B {
 		private String a;
 		private String b;
-
 		public String getA() {
 			return a;
 		}
-
 		public void setA(String a) {
 			this.a = a;
 		}
-
 		public String getB() {
 			return b;
 		}
-
 		public void setB(String b) {
 			this.b = b;
 		}
 	}
-
 }
 ```
 ## 查看 exclude 方法源码
@@ -61,20 +51,19 @@ public class Issue314TestCase {
 只找到了一个方法,在 ClassMapBuilder 类中
 
 ```java
-    /**
-     * Exclude the specified field from mapping
-     * 
-     * @param fieldName
-     *            the name of the field/property to exclude
-     * @return this ClassMapBuilder
-     */
-    public ClassMapBuilder<A, B> exclude(String fieldName) {
-        if (propertyResolver.existsProperty(getAType(), fieldName) && propertyResolver.existsProperty(getBType(), fieldName)) {
-            return fieldMap(fieldName).exclude().add();
-        } else {
-            return this;
-        }
+/**
+ * Exclude the specified field from mapping
+ * @param fieldName
+ *            the name of the field/property to exclude
+ * @return this ClassMapBuilder
+ */
+public ClassMapBuilder<A, B> exclude(String fieldName) {
+    if (propertyResolver.existsProperty(getAType(), fieldName) && propertyResolver.existsProperty(getBType(), fieldName)) {
+        return fieldMap(fieldName).exclude().add();
+    } else {
+        return this;
     }
+}
 ```
 看到这段代码,猜测一下这个逻辑应该是,排除的属性(fieldName)必须在 A 类和 B 中都存在. 然后断点在 if 条件上看看 A 类和 B 类中的属性都有什么?
 
@@ -99,12 +88,10 @@ public class Issue314TestCase {
  * Factory produces instances of ClassMapBuilderForMaps
  */
 public static class Factory extends ClassMapBuilderFactory {
-
     @Override
     protected <A, B> boolean appliesTo(Type<A> aType, Type<B> bType) {
         return (aType.isMap() && !bType.isMap()) || (bType.isMap() && !aType.isMap());
     }
-
 	/* (non-Javadoc)
 	 * @see ma.glasnost.orika.metadata.ClassMapBuilderFactory#newClassMapBuilder(ma.glasnost.orika.metadata.Type, ma.glasnost.orika.metadata.Type, ma.glasnost.orika.property.PropertyResolverStrategy, ma.glasnost.orika.DefaultFieldMapper[])
 	 */
@@ -113,8 +100,7 @@ public static class Factory extends ClassMapBuilderFactory {
 			Type<A> aType, Type<B> bType,
 			MapperFactory mapperFactory,
 			PropertyResolverStrategy propertyResolver,
-			DefaultFieldMapper[] defaults) {
-		
+			DefaultFieldMapper[] defaults) {	
 		return new ClassMapBuilderForMaps<A,B>(aType, bType, mapperFactory, propertyResolver, defaults);
 	}
 }
@@ -128,26 +114,26 @@ public static class Factory extends ClassMapBuilderFactory {
 
 ```java
 /**
-     * Exclude the specified field from bean mapping
-     * 
-     * @param fieldName
-     *            the name of the field/property to exclude
-     * @return this ClassMapBuilder
-     */
-    @Override
-    public ClassMapBuilder<A, B> exclude(String fieldName) {
-    	Type<?> type = isATypeBean() ? getAType() : getBType();
-    	if(getPropertyResolver().existsProperty(type, fieldName)) {
-    		 return fieldMap(fieldName).exclude().add();
-    	}else {
-    		return this;
-    	}
-    }
+ * Exclude the specified field from bean mapping
+ * @param fieldName
+ *            the name of the field/property to exclude
+ * @return this ClassMapBuilder
+ */
+@Override
+public ClassMapBuilder<A, B> exclude(String fieldName) {
+	Type<?> type = isATypeBean() ? getAType() : getBType();
+	if(getPropertyResolver().existsProperty(type, fieldName)) {
+		return fieldMap(fieldName).exclude().add();
+	}else {
+		return this;
+	}
+}
 ```
 上面这段代码就是 ClassMapBuilderForMaps 类中缺少的代码. 然后我把这段代码 PR 到 orika 的 github 仓库,不到2分钟他们就 Merged 到主线上了.
 
-但是现在我们使用的是以前的版本,要怎么绕过这个问题? 可以去掉 byDefault 方法用 ClassMapBuilder 的 field 方法指定要转换的属性,这样做在属性较多时会麻烦一些
+但是现在我们使用的是以前的版本,要怎么绕过这个问题? 可以去掉 byDefault 方法用 ClassMapBuilder 的 field 方法指定要映射的属性,这样做在属性较多时会麻烦一些
 
 ## 相关类
 [ClassMapBuilder.java](https://github.com/orika-mapper/orika/blob/master/core/src/main/java/ma/glasnost/orika/metadata/ClassMapBuilder.java)
+
 [ClassMapBuilderForMaps](https://github.com/orika-mapper/orika/blob/master/core/src/main/java/ma/glasnost/orika/metadata/ClassMapBuilderForMaps.java)
