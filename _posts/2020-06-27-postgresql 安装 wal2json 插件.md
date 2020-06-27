@@ -82,5 +82,5 @@ $ pg_recvlogical -d postgres -U postgres --slot test_slot --drop-slot
 
 # 参考
 
-- https://github.com/eulerto/wal2json
-- https://blog.csdn.net/Kafka_yx/article/details/103240056
+- [https://github.com/eulerto/wal2json](https://github.com/eulerto/wal2json)
+- [https://blog.csdn.net/Kafka_yx/article/details/103240056](https://blog.csdn.net/Kafka_yx/article/details/103240056)
