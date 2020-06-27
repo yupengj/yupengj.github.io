@@ -69,11 +69,11 @@ public ClassMapBuilder<A, B> exclude(String fieldName) {
 
 - map 的属性在 propertyCache 中是这样的
 
-![Amapclass](https://gitee.com/jyp10/jyp10/raw/blog/images/2019/Amapclass.png) 
+![Amapclass](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2019/Amapclass.png) 
 
 - Bean 类的属性在 propertyCache 中是这样的
 
-![Bclass](https://gitee.com/jyp10/jyp10/raw/blog/images/2019/Bclass.png) 
+![Bclass](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2019/Bclass.png) 
 
 所以第一个条件 `propertyResolver.existsProperty(getAType(), fieldName)`是永远不会成立的. 这是什么鬼 map 中的属性排除不支持吗?
 
@@ -81,7 +81,7 @@ public ClassMapBuilder<A, B> exclude(String fieldName) {
 
 找了好久,各种怀疑,最后看了一下 Variables 中的 this !!! 
 
-![ClassMapThis](https://gitee.com/jyp10/jyp10/raw/blog/images/2019/ClassMapThis.png)
+![ClassMapThis](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2019/ClassMapThis.png)
 
 原来 `mapperFactory.classMap(Map.class, B.class)` 创建出来的是 ClassMapBuilderForMaps 类,继承 ClassMapBuilder 类.
 那为什么创建出来 ClassMapBuilderForMaps 类呢? 猜一下肯定是 classMap 方法中有一个参数是 Map. 源码如下:

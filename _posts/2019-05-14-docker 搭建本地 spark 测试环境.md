@@ -42,7 +42,7 @@ tags: spark
     ```
 启动 spark-shell 启动成功后如下图，会进入 scala 控制台
 
-![启动spark](https://gitee.com/jyp10/jyp10/raw/blog/images/2019/spark_start.png)
+![启动spark](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2019/spark_start.png)
 
 
 ### scala 控制台版本 wordCount. 输入以下代码
@@ -61,7 +61,7 @@ wordsort.take(10)
 ```
 运行结果如图
 
-![wordCount](https://gitee.com/jyp10/jyp10/raw/blog/images/2019/spark_wordCount.png)
+![wordCount](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2019/spark_wordCount.png)
 
 ### IDEA 版本 JavaWordCount
 ```
