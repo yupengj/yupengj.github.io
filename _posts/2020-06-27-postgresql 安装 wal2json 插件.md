@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "postgresql安装wal2json插件"
+title: "postgresql 安装 wal2json 插件"
 date: 2020-06-27 20:00:00
-tags: spark
+tags: postgresql wal2json
 ---
 
 # 系统环境及软件版本
@@ -27,27 +27,27 @@ postgresql 的安装与配置这里就不详细介绍了，可以自行搜索。
 
 - 根据上面地址下载 Visual Studio 2019, 选择Community 2019,下载下来的是 exe文件,执行exe文件。
 
-![](../images/2020/vs下载.png)
+![](https://gitee.com/jyp10/jyp10/raw/blog/images/2020/vs下载.png)
 
 - 根据提示进行安装，到下面这步时一定要选中 “使用 C++的桌面开发”
 
-![](../images/2020/vs选择服务.png)
+![](https://gitee.com/jyp10/jyp10/raw/blog/images/2020/vs选择服务.png)
 
 - 安装完成后导入 wal2json 项目文件
 
-![](../images/2020/导入插件wal2json.png)
+![](https://gitee.com/jyp10/jyp10/raw/blog/images/2020/导入插件wal2json.png)
 
 - 在 wal2json项目中 .c 文件上右键选择属性，把配置修改成 release， 包括配置管理器中的值
 
-![](../images/2020/调整release.png)
+![](https://gitee.com/jyp10/jyp10/raw/blog/images/2020/调整release.png)
 
 - 选择项目跟目录右键“生成解决方案”进行编译 wal2json，编译后会生成 dll 文件，文件的路径打印在控制台
 
-![](../images/2020/编译插件.png)
+![](https://gitee.com/jyp10/jyp10/raw/blog/images/2020/编译插件.png)
 
 - 将生成的 wal2json.dll 文件复制到 postgresql 的 lib 目录下
 
-![](../images/2020/把插件的dll文件移到pglib文件夹下.png)
+![](https://gitee.com/jyp10/jyp10/raw/blog/images/2020/把插件的dll文件移到pglib文件夹下.png)
 
 # 测试 wal2json 插件
 
@@ -72,7 +72,7 @@ delete from mstdata.test_slot where a = 2;
 
 - 第一个命令窗口打印出日志信息则说明 wal2json 插件运行正常
 
-![](../images/2020/打印日志.png)
+![](https://gitee.com/jyp10/jyp10/raw/blog/images/2020/日志打印.png)
 
 - 删除测试复制槽在第一个命令窗口执行
 ```
@@ -81,5 +81,6 @@ $ pg_recvlogical -d postgres -U postgres --slot test_slot --drop-slot
 ```
 
 # 参考
+
 - https://github.com/eulerto/wal2json
 - https://blog.csdn.net/Kafka_yx/article/details/103240056
