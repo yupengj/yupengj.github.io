@@ -7,7 +7,7 @@ tags: orika java
 
 在使用 orika 进行 map 转 bean 发现 exclude 方法不能有效的排除不需要映射的属性.最后经查看源码发现是 orika 的一个bug.
 
-下面记录一下是如何发现这个问题.
+下面记录以下是如何发现这个问题.
 
 
 
