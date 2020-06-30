@@ -21,17 +21,20 @@ tags: kafka
 ![](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2020/kafka.png)
 
 - 进入kafka文件夹下执行下面命令启动 ZooKeeper
-```shell script
+```
 bin/windows/zookeeper-server-start.bat config/zookeeper.properties
 ```
+
 - 启动 kafak server
 ```
 bin/windows/kafka-server-start.bat config/server.properties
 ```
+
 - 创建 test 主题
 ```
 bin/windows/kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
 ```
+
 - 查看主题,控制台会输出 test
 ```
 bin/windows/kafka-topics.bat --list --bootstrap-server localhost:9092 
@@ -39,24 +42,25 @@ bin/windows/kafka-topics.bat --list --bootstrap-server localhost:9092
 
 ### 创建 producer 和 consumer
 
-创建生成者客户端并输入测试消息。注 2.5版本后需要把 --broker-list 改为 --bootstrap-server
+- 创建生成者客户端并输入测试消息。注 2.5版本后需要把 --broker-list 改为 --bootstrap-server
  ```
 $ bin/windows/kafka-console-producer.bat --broker-list localhost:9092 --topic test
 >nihao
 >你好
 ```
-创建消费者客户端接收消息。这里中文乱码暂时没有找到解决办法。
+
+- 创建消费者客户端接收消息。这里中文乱码暂时没有找到解决办法。
 ```
 $ bin/windows/kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test --from-beginning
 >nihao
 >锟斤拷锟
 ```
-继续在生产值客户端发送消息，消费者客户端会自动同步消息。
 
-### java 客户端测试消 producer 和 consumer
+- 继续在生产值客户端发送消息，消费者客户端会自动同步消息。
+
+### java 客户端测试 producer 和 consumer
 
 - Producer 类，向 test 主题发送10条消息
-
 ```java
 @Slf4j
 public class Producer {
@@ -83,7 +87,6 @@ public class Producer {
 ```
 
 -  Consumer 类，拉取 test 主题的消息，连续10次没有拉取到数据时结束轮询
-
 ```java
 @Slf4j
 public class Consumer {
@@ -123,7 +126,6 @@ public class Consumer {
 ## 启动连接器 Worker 安装 debezium-connector-postgres 连接器插件
 
 - 修改 kafka 文件夹下 config/connect-distributed.properties 文件增加以下配置
-
 ```properties
 # rest 请求地址
 rest.host.name=localhost
@@ -137,7 +139,7 @@ plugin.path=/software/kafka_2.12-2.3.0/plugins
 ![](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2020/plugins.png)
 
 - 启动连接器 Worker, 启动时有类着不到警告，暂时没有找到原因。
-```shell script
+```
 bin/windows/connect-distributed.bat config/connect-distributed.properties 
 ```
 
