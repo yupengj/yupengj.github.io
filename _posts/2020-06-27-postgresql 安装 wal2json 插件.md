@@ -5,7 +5,7 @@ date: 2020-06-27 20:00:00
 tags: postgresql wal2json
 ---
 
-# 系统环境及软件版本
+## 系统环境及软件版本
 
 - window10 64位 系统
 - postgresql 10 版本
@@ -16,11 +16,11 @@ tags: postgresql wal2json
 
 
 
-# 下载 wal2json 
+## 下载 wal2json 
 
 根据上面地址下载 zip 文件，解压后打开 `wal2json.vcxproj` 文件,把文件中所有的 `c:\postgres\pg103` 替换成本地 postgresql 安装路径，如我本地 postgresql 路径 `D:\software\PostgreSQL\10`
 
-# 下载 Visual Studio 2019 并编译 wal2json
+## 下载 Visual Studio 2019 并编译 wal2json
 
 postgresql 的安装与配置这里就不详细介绍了，可以自行搜索。所以文章是认为在本地已装过 postgresql 后进行安装 wal2json 插件。
 由于 wal2json 插件在 window10 环境安装时需要进行编译。所以需要下载 Visual Studio 2019 进行编译 wal2json 插件。
@@ -49,7 +49,7 @@ postgresql 的安装与配置这里就不详细介绍了，可以自行搜索。
 
 ![](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2020/把插件的dll文件移到pglib文件夹下.png)
 
-# 测试 wal2json 插件
+## 测试 wal2json 插件
 
 - 在 postgresql 的 postgresql.conf 配置文件中增加如下配置，并重启数据库
 ```
@@ -80,7 +80,7 @@ Ctrl+C
 $ pg_recvlogical -d postgres -U postgres --slot test_slot --drop-slot
 ```
 
-# 参考
+## 参考
 
 - [https://github.com/eulerto/wal2json](https://github.com/eulerto/wal2json)
 - [https://blog.csdn.net/Kafka_yx/article/details/103240056](https://blog.csdn.net/Kafka_yx/article/details/103240056)

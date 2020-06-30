@@ -4,3 +4,10 @@ _site
 .vscode
 .idea
 .DS_Store
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
