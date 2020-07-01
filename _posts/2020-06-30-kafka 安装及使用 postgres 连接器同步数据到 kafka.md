@@ -206,10 +206,7 @@ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 
 注意连接器创建前必须保证连接器 Worker 已启动。创建连接器后可通过 API 查看所有启动的连接器`curl localhost:8083/connectors`和连接器的状态`curl localhost:8083/connectors/pg-source/status`
 ![](https://raw.githubusercontent.com/yupengj/yupengj.github.io/master/images/2020/connectors.png)
 
-- 创建消费者客户端测试同步数据
-
-连接器创建成功后会自动同步数据到 kafka 的指定主题中，主题的名称为配置中的`database.server.name`.`schemaName`.`tableName`，如这里主题的名称是 'test.test.test_slot'
-
+- 创建消费者客户端测试同步数据。连接器创建成功后会自动同步数据到 kafka 的指定主题中，主题的名称为配置中的`database.server.name`.`schemaName`.`tableName`，如这里主题的名称是 'test.test.test_slot'
 ```
 bin/windows/kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test.test.test_slot --from-beginning
 ```
