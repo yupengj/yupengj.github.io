@@ -63,7 +63,8 @@ $ pg_recvlogical -d postgres -U postgres --slot test_slot --start -o pretty-prin
 ```
 
 - 再使用数据库连接工具，模拟新增、修改、删除数据
-```sql
+```postgresql
+create schema mstdata;
 create table mstdata.test_slot(a serial8 primary key, b text, c float8, d timestamp);
 insert into mstdata.test_slot (b, c, d) values ('test_slot', 11.11, now());
 update mstdata.test_slot set b = 'test_slot1' where a = 2;
