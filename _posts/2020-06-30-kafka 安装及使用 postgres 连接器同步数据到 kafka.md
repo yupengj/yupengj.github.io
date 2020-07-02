@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "kafka 安装及使用 postgres 连接器同步数据到 kafka"
-date: 2020-06-27 20:00:00
+date: 2020-06-30 20:00:00
 tags: kafka
 ---
 
